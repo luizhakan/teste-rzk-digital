@@ -4,13 +4,23 @@ import { GraficoMoedaService } from './service/grafico-moeda.service';
 import { Subscription, timer, Subject } from 'rxjs';
 import { startWith, switchMap, takeUntil } from 'rxjs/operators';
 
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ApexTitleSubtitle,
+} from 'ng-apexcharts';
+
 // Interface para tipagem de opções do gráfico
 export interface ChartOptions {
-  series: any;
-  chart: any;
-  xaxis: any;
-  title: any;
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  title: ApexTitleSubtitle;
 }
+
+// faça uma condicional pra o tamanho de tela, se for menor que 768px a condição será false
+const isSmallScreen = window.innerWidth < 768;
 
 @Component({
   selector: 'app-root',
@@ -31,6 +41,12 @@ export class AppComponent implements OnDestroy {
   constructor(private graficoMoedaService: GraficoMoedaService) {
     // Inicialização das opções do gráfico
     this.initChartOptions();
+
+    if (isSmallScreen) {
+      console.log('true', isSmallScreen);
+    } else {
+      console.log('false', isSmallScreen);
+    }
   }
 
   // Inicialização das opções do gráfico
@@ -50,6 +66,9 @@ export class AppComponent implements OnDestroy {
         foreColor: 'rgb(233,233,233)',
         dropShadow: {
           color: 'rgb(11,35,71)',
+        },
+        zoom: {
+          enabled: !isSmallScreen,
         },
       },
       title: {
@@ -87,7 +106,7 @@ export class AppComponent implements OnDestroy {
       }
     }
 
-    console.log("this.categories", this.categories);
+    console.log('this.categories', this.categories);
   }
 
   // Atualiza o gráfico com os dados da moeda
@@ -104,7 +123,9 @@ export class AppComponent implements OnDestroy {
         switchMap(() => {
           // Atualiza o tempo
           this.updateTime();
-          return this.graficoMoedaService.getMoedas(moeda).pipe(takeUntil(this.unsubscribe));
+          return this.graficoMoedaService
+            .getMoedas(moeda)
+            .pipe(takeUntil(this.unsubscribe));
         })
       );
 
@@ -118,7 +139,6 @@ export class AppComponent implements OnDestroy {
 
       // Atualiza a subscrição
       this.currentSubscription = dataObs.subscribe((dados: any) => {
-
         if (dados && Object.keys(dados).length > 0) {
           const key = Object.keys(dados)[0];
           const code = dados[key].code;
@@ -157,6 +177,9 @@ export class AppComponent implements OnDestroy {
         foreColor: 'rgb(233,233,233)',
         dropShadow: {
           color: 'rgb(11,35,71)',
+        },
+        zoom: {
+          enabled: !isSmallScreen,
         },
       },
       title: {
