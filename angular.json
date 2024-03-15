@@ -25,7 +25,10 @@
           "options": {
             "outputPath": "dist/teste-rzk-digital",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "allowedCommonJsDependencies": [
+              "apexcharts"
+          ],
+            "browser": "./src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -45,8 +48,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1300kb",
+                  "maximumError": "1300kb"
                 },
                 {
                   "type": "anyComponentStyle",
