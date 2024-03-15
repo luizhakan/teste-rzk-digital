@@ -37,7 +37,8 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [  "node_modules/apexcharts/dist/apexcharts.min.js"
+          ]
           },
           "configurations": {
             "production": {
@@ -96,10 +97,14 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [  "node_modules/apexcharts/dist/apexcharts.min.js"
+          ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "68a08679-faef-4511-93e9-7ee42da626f7"
   }
 }
