@@ -13,8 +13,3 @@ export interface GraficoMoeda {
     create_date: string;
   };
 }
-
-// valor da cotação da moeda
-export interface Cotacao {
-  bid: number;
-}

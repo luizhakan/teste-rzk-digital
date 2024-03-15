@@ -1,7 +1,12 @@
-<apx-chart
-  [series]="chartOptions.series!"
-  [chart]="chartOptions.chart!"
-  [xaxis]="chartOptions.xaxis!"
-  [title]="chartOptions.title!"
-></apx-chart>
+<div class="bg-[#0b2347] text-[#e9e9e9] min-h-screen">
+  <app-currency-select (buscar)="atualizarGraficoComIntervalo($event)" (limpar)="limparDados()"></app-currency-select>
 
+  <div class="p-4">
+    <apx-chart
+      [series]="chartOptions.series!"
+      [chart]="chartOptions.chart!"
+      [xaxis]="chartOptions.xaxis!"
+      [title]="chartOptions.title!"
+    ></apx-chart>
+  </div>
+</div>

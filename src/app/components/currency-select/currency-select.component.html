@@ -1,0 +1,26 @@
+<div class="flex justify-center mt-4 mb-4">
+  <select
+    (change)="onCurrency1Change($event)"
+    class="bg-[#0b2347] text-[#e9e9e9] rounded-md p-2 border border-[#4fc0ad] transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+  >
+    <option *ngFor="let code of getCurrencyCodes()" [value]="code">
+      {{ currencyCodes[code] }}
+    </option>
+  </select>
+
+  <select
+    (change)="onCurrency2Change($event)"
+    class="bg-[#0b2347] text-[#e9e9e9] rounded-md p-2 ml-4 border border-[#4fc0ad] transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+  >
+    <option *ngFor="let code of getCurrencyCodes()" [value]="code">
+      {{ currencyCodes[code] }}
+    </option>
+  </select>
+
+  <button
+    class="buscar bg-[#0b2347] text-[#e9e9e9] ml-4 border border-[#4fc0ad] rounded-md p-2 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+    (click)="buscarMoeda()"
+  >
+    Buscar
+  </button>
+</div>

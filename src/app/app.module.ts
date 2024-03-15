@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { HttpClientModule } from '@angular/common/http';
+import { CurrencySelectComponent } from './components/currency-select/currency-select.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CurrencySelectComponent
   ],
   imports: [
     BrowserModule,
