@@ -3,7 +3,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-currency-select',
   templateUrl: './currency-select.component.html',
-  styleUrls: ['./currency-select.component.css'],
 })
 export class CurrencySelectComponent implements OnInit {
   // Dicionário de códigos de moeda

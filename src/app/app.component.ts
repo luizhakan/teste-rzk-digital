@@ -15,7 +15,6 @@ export interface ChartOptions {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnDestroy {
   @ViewChild('chart') chart!: ChartComponent;
@@ -79,11 +78,16 @@ export class AppComponent implements OnDestroy {
     const seconds = now.getSeconds().toString().padStart(2, '0');
     this.currentTime = `${hours}:${minutes}:${seconds}`;
 
-    // Adiciona uma nova categoria se necessário
-    if (this.categories.length === 0 || Date.now() - this.lastUpdateTime > 2000) {
-      this.categories.push(this.currentTime);
-      this.lastUpdateTime = Date.now();
+    // Adiciona uma nova categoria se o tempo anterior for maior que 30 segundos
+    if (this.categories.length > 0) {
+      const lastTime = new Date(this.categories[this.categories.length - 1]);
+      const diff = now.getTime() - lastTime.getTime();
+      if (diff >= 30 * 100) {
+        this.categories.push(this.currentTime);
+      }
     }
+
+    console.log("this.categories", this.categories);
   }
 
   // Atualiza o gráfico com os dados da moeda
@@ -98,6 +102,8 @@ export class AppComponent implements OnDestroy {
       const dataObs = timer(0, 30 * 1000).pipe(
         startWith(0),
         switchMap(() => {
+          // Atualiza o tempo
+          this.updateTime();
           return this.graficoMoedaService.getMoedas(moeda).pipe(takeUntil(this.unsubscribe));
         })
       );
@@ -112,6 +118,7 @@ export class AppComponent implements OnDestroy {
 
       // Atualiza a subscrição
       this.currentSubscription = dataObs.subscribe((dados: any) => {
+
         if (dados && Object.keys(dados).length > 0) {
           const key = Object.keys(dados)[0];
           const code = dados[key].code;
@@ -129,8 +136,6 @@ export class AppComponent implements OnDestroy {
         } else {
           console.log('Nenhum dado encontrado');
         }
-
-        dataObs.subscribe(() => this.updateTime());
       });
     }
   }
